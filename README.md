@@ -23,7 +23,7 @@
     O circuito será integrado dentro de uma caixa organizadora de remédios, onde cada 
     compartimento será controlado por um servo motor, totalizando sete motores no projeto.
  
-    *Funcionamento da liberação do medicamento:*
+*Funcionamento da liberação do medicamento:*
  
     - O sistema receberá dados sobre os horários e dias dos medicamentos.
     - Quando chegar o momento da medicação, o LED verde, indicando "medicamento disponível",
@@ -32,7 +32,7 @@
     - Após a remoção do medicamento pelo usuário, o servo motor fechará a porta e o 
     LED e buzzer serão desligados.
  
-    *Funcionalidade dos sensores:*
+*Funcionalidade dos sensores:*
      
     Os sensores LDR, DHT36 e potenciômetro (simulando o sensor de umidade) captam as condições do ambiente 
     em que os medicamentos estão guardados.
