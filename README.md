@@ -49,10 +49,7 @@
 
 https://www.tinkercad.com/things/5cB6PFGGSr6-copy-of-teste-gs-arduino/editel?sharecode=tz1rrR7GoGbAKzu0js0Ioe5cdJaE4tkKdcsGnIjTTpE
 
-# Video Explicativo
-
-    https://youtu.be/2RgO52bCxGE?si=_icoLKWKH8y7LQV4
-
 # Prototipo Caixa de Remedios
+
 https://www.tinkercad.com/things/lUn7u9llIcm-caixa-calendario-de-remedios?sharecode=eph5wkV1YP2R7mW1KN2Vdu2f6i5ZGY1ebvBBBDbgFH0
 
