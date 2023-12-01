@@ -1,0 +1,204 @@
+// Incluindo bibliotecas
+    #include <Adafruit_LiquidCrystal.h>
+    #include <Servo.h>
+
+    Adafruit_LiquidCrystal lcd(0);
+
+// Definindo os pinos dos servos
+    int servoSegunda = 7;
+    int servoTerca   = 8;
+    int servoQuarta  = 9;
+    int servoQuinta  = 10;
+    int servoSexta   = 11;
+    int servoSabado  = 12;
+    int servoDomingo = 13;
+
+
+// objeto do tipo Servo
+    Servo servoMotorSeg;
+    Servo servoMotorTer;
+    Servo servoMotorQua;
+    Servo servoMotorQui;
+    Servo servoMotorSex;
+    Servo servoMotorSab;
+    Servo servoMotorDom;
+
+
+// Definindo o pino do buzzer
+    int buzzer 	= 6;
+
+// Definindo o pino dos Leds
+    int ledDisponivel = 2;
+    int ledAlerta     = 3;
+
+// Definindo o pino/variaveis do sensor de temp
+    int temperatura = A1;
+    int celsius = 0;
+
+// Definindo o pino/variaveis do sensor de umidade
+    int pinUmidade = A2;
+    float voltagem;
+    float leitura;
+    int umidade;
+
+    void setup()
+    {
+    // Inicia a comunicação serial
+    Serial.begin(9600);
+    
+    // Definindo as entradas e saídas
+    
+        // buzzer
+        pinMode(buzzer, 	   OUTPUT);
+
+        // Leds
+        pinMode(ledDisponivel, OUTPUT);
+        pinMode(ledAlerta,     OUTPUT);
+    
+        // ServoMotor
+        pinMode(servoSegunda,  OUTPUT);
+        pinMode(servoTerca,    OUTPUT);
+        pinMode(servoQuarta,   OUTPUT);
+        pinMode(servoQuinta,   OUTPUT);
+        pinMode(servoSexta,    OUTPUT);
+        pinMode(servoSabado,   OUTPUT);
+        pinMode(servoDomingo,  OUTPUT);
+
+        // Anexa o objeto do tipo Servo ao pino do servo motor
+        servoMotorSeg.attach(servoSegunda);
+        servoMotorTer.attach(servoTerca);
+        servoMotorQua.attach(servoQuarta);
+        servoMotorQui.attach(servoQuinta);
+        servoMotorSex.attach(servoSexta);
+        servoMotorSab.attach(servoSabado);
+        servoMotorDom.attach(servoDomingo);
+
+        // Sensor Temperatura
+        pinMode(temperatura,INPUT);
+    
+        // Sensor Umidade 
+        pinMode(pinUmidade,INPUT);
+    
+    // Iniciando o LCD
+    lcd.begin(16, 2);
+    lcd.print("MEDIplus");
+    
+    delay(500);
+    
+    }
+
+    void loop()
+    {
+    // Definindo o pino analógico do LDR
+    int LDR = analogRead(A0);
+    
+    // Medida do sensor de temperatura em Celsius
+    celsius = map(((analogRead(temperatura)- 20) * 3.04), 0, 1023, -40, 125);
+    
+    // Definindo a umidade
+        // Ler o pino do sensor de umidade
+        leitura = analogRead(pinUmidade);
+        // Cálculo da voltagem
+        voltagem = leitura*1053/1023;
+        // Converter a voltagem em % de umidade
+        umidade = voltagem/10.53;
+
+    
+    // PROCESSANDO OS DADOS
+    // Verificando status da caixa
+
+        // Temperatura ideal = 15ºC - 30ºC
+        // Umidade idal = 75%
+        // Luminosidade ideal = penunbra/escuridão
+    
+    if (celsius >= 15 && celsius <= 30 && umidade >= 60 && umidade <= 80 && LDR <= 500){
+        
+        Serial.println("MEDICAMENTOS CONSERVADOS");
+        
+        // PREVIEW OS DADOS
+        
+        Serial.println("    ");
+        Serial.print("Luminosidade: ");
+        Serial.println(LDR);
+        
+        Serial.print("Temperatura: ");
+        Serial.print(celsius);
+        Serial.println(" c ");
+        
+        Serial.print("Umidade: ");
+        Serial.print(umidade);
+        Serial.println(" % ");
+        
+        Serial.println("    ");
+        
+        // CRONOGRAMA DOS REMÉDIOS
+    
+        // SEGUNDA
+        lcd.setCursor(0,0);
+        lcd.print("MEDI CONSERVADOS");
+        lcd.setCursor(0,1);
+        lcd.print("SEGUNDA - 13H20");
+        lcd.setBacklight(1);
+        
+        // Abre compartimento
+        servoMotorSeg.write(0);
+    
+        // Notificação da seção 
+        digitalWrite(ledDisponivel, HIGH);
+        digitalWrite(ledAlerta, 	 LOW);
+        digitalWrite(buzzer, 		 HIGH);
+        
+        delay(5000);
+        
+        digitalWrite(ledDisponivel, LOW);
+        digitalWrite(ledAlerta, 	 LOW);
+        digitalWrite(buzzer, 		 LOW);
+        
+        // Fecha compartimento
+        servoMotorSeg.write(90);
+        
+        delay(1000);
+        
+
+    } else {
+    
+        Serial.println("MEDICAMENTOS COMPROMETIDO");
+        
+        // PREVIEW OS DADOS
+        
+        Serial.println("    ");
+        Serial.print("Luminosidade: ");
+        Serial.println(LDR);
+        
+        Serial.print("Temperatura: ");
+        Serial.print(celsius);
+        Serial.println(" c ");
+        
+        Serial.print("Umidade: ");
+        Serial.print(umidade);
+        Serial.println(" % ");
+        Serial.println("    ");
+        
+        // Apresentando os dados no LCD
+        lcd.setCursor(0,0);
+        lcd.print("ATENÇÃO");
+        lcd.setCursor(0,1);
+        lcd.print("MED COMPROMETIDO");
+        
+        // Notificando de alerta
+        
+        lcd.setBacklight(1);
+        digitalWrite(ledDisponivel, LOW);
+        digitalWrite(ledAlerta, 	HIGH);
+        digitalWrite(buzzer, 		HIGH);
+        
+        delay(500);
+        
+        lcd.setBacklight(0);
+        digitalWrite(ledDisponivel,	LOW);
+        digitalWrite(ledAlerta,		HIGH);
+        digitalWrite(buzzer,		LOW);
+        
+  }
+
+}
