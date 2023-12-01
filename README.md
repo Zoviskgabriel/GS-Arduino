@@ -1,4 +1,4 @@
-# GS-Arduino-
+# GS-Arduino
 # INTEGRANTES:
 
     Gilson Dias Ramos Junior – RM552345 
