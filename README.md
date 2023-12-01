@@ -20,8 +20,8 @@
 
 # Instrucoes
 
-    O circuito será integrado dentro de uma caixa organizadora de remédios, onde cada compartimento será 
-    controlado por um servo motor, totalizando sete motores no projeto.
+    O circuito será integrado dentro de uma caixa organizadora de remédios, onde cada 
+    compartimento será controlado por um servo motor, totalizando sete motores no projeto.
  
     *Funcionamento da liberação do medicamento:*
  
