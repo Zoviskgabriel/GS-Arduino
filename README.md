@@ -49,7 +49,7 @@
 
 https://www.tinkercad.com/things/5cB6PFGGSr6-copy-of-teste-gs-arduino/editel?sharecode=tz1rrR7GoGbAKzu0js0Ioe5cdJaE4tkKdcsGnIjTTpE
 
-#Video Explicativo
+# Video Explicativo
 
 https://www.youtube.com/watch?v=3K3Q6ZycPtw
 
